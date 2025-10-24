@@ -1,0 +1,18 @@
+{
+  version: 3.8,
+  services: {
+    api: {
+      build: .,
+      image: payments-lab-api,
+      container_name: payments-lab-api,
+      working_dir: /app/api,
+      volumes: [
+        ./api:/app/api
+      ],
+      command: npm start,
+      ports: [
+        4105:4105
+      ]
+    }
+  }
+}

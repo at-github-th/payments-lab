@@ -1,0 +1,19 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Payments Lab (Adyen/Amazon Pay) – Web</title>
+<style>body{{font-family:system-ui;margin:2rem}}.card{{border:1px solid #eee;border-radius:12px;padding:1rem}}</style>
+</head>
+<body>
+  <h1>Payments Lab (Adyen/Amazon Pay) – Web</h1>
+  <div class="card">
+    <p><b>API:</b> http://localhost:5105</p>
+    <button onclick="ping()">Ping</button>
+    <button onclick="tryExample()">Try Example</button>
+    <pre id="out">Ready.</pre>
+  </div>
+  <script>
+    const base="http://localhost:5105"; const out=document.getElementById('out');
+    async function ping(){{ const r=await fetch(base); out.textContent=JSON.stringify(await r.json(),null,2);}}
+    async function tryExample(){{ try{{ const r=await fetch(base+'/api'); out.textContent='Use project endpoints like /api/kpis, /api/devices, /api/resources'; }}catch(e){{ out.textContent=String(e);}} }}
+  </script>
+</body></html>

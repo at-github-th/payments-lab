@@ -1,16 +1,18 @@
-# Payments Lab (Adyen/Amazon Pay) — Native Backend (JAVA)
+# Payments Lab
 
-This repo provides a **language-native backend** on port **5105**, with minimal **web** and **mobile** clients and a tiny **SDK**.
+**Stack:** Java (Spring Boot)  
+**API:** http://127.0.0.1:5105  
+**Web:** http://localhost:5505
 
-## Run
-See `api/README.md` for language-specific steps, then:
-- Web: open `web/index.html` via a static server
-- Mobile: `cd mobile && npm install && npm run start` (Android emulator uses `10.0.2.2:5105`)
+## Run (local)
 
-## Endpoints
-Project-specific routes are implemented in the backend (see `api/`). Try typical paths like:
-- `/api/kpis`, `/api/opps`, `/api/notes`
-- `/api/devices`, `/api/heartbeats`
-- `/api/resources`, `/api/availability`, `/api/book`
-- `/api/payments/create`, `/api/webhooks`
-- `/api/ingest`, `/api/dash/summary`
+### API
+cd payments-lab-native/api && ./gradlew bootRun   # first time: gradle wrapper etc.
+
+### Web (static tester)
+cd payments-lab-native/web && python3 -m http.server 5505
+
+## Test
+- **Ping:** curl -s http://127.0.0.1:5105 | jq .
+- **Ping:** GET /\n- **Charge (demo):** POST /api/pay
+

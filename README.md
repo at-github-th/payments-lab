@@ -1,18 +1,20 @@
 # Payments Lab
 
-**Stack:** Java (Spring Boot)  
-**API:** http://127.0.0.1:5105  
-**Web:** http://localhost:5505
+Language: Java (Spring Boot)
 
-## Run (local)
+## How to run
 
-### API
-cd payments-lab-native/api && ./gradlew bootRun   # first time: gradle wrapper etc.
+API
+```bash
+cd payments-lab-native/api && ./gradlew bootRun
+```
 
-### Web (static tester)
+Web
+```bash
 cd payments-lab-native/web && python3 -m http.server 5505
+```
 
-## Test
-- **Ping:** curl -s http://127.0.0.1:5105 | jq .
-- **Ping:** GET /\n- **Charge (demo):** POST /api/pay
+Open http://localhost:5505
 
+## Endpoints
+- Ping: GET /\n- Charge: POST /api/pay

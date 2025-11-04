@@ -1,11 +1,31 @@
-<!doctype html><meta charset="utf-8"><title>payments-lab-native demo</title>
-<style>body{font-family:system-ui,Arial;margin:24px;max-width:900px}.row{display:flex;gap:8px;margin:8px 0}button{padding:8px 12px}pre{background:#111;color:#0f0;padding:12px;min-height:120px;white-space:pre-wrap}</style>
-<h1>payments-lab-native web tester</h1>
-<div class="row"><label>API base</label><input id="base" size="40" value="http://127.0.0.1:5105"><button onclick="ping()">Ping</button><button onclick="ex()">Run Example</button></div>
-<pre id="out">Click a button…</pre>
+<!doctype html><html><head><meta charset="utf-8"/>
+<title>Payments Lab</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<style>
+  body{font-family:system-ui;margin:24px;background:#0d0b1f;color:#e9d5ff}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  input{padding:8px;border-radius:6px;border:1px solid #312e81;background:#0b0a1e;color:#e9d5ff}
+  button{background:#a78bfa;border:0;border-radius:8px;padding:8px 12px;color:#1e1b4b;cursor:pointer}
+  .card{background:#0b0a1e;border:1px solid #312e81;border-radius:12px;padding:14px;margin-top:12px}
+  pre{background:#0b0a1e;border:1px solid #312e81;border-radius:8px;padding:10px;overflow:auto}
+</style></head><body>
+<h1>Payments Lab</h1><div>Spring Boot • :5105</div>
+<div class="card">
+  <div class="row">
+    <input id="amt" type="number" min="1" step="0.01" placeholder="Amount e.g. 19.99"/>
+    <button id="intent">Create Intent</button>
+    <button id="capture">Capture</button>
+  </div>
+</div>
+<pre id="out">Ready.</pre>
 <script>
-const out=document.getElementById('out');
-function base(){return document.getElementById('base').value}
-async function ping(){try{const r=await fetch(base()); out.textContent=JSON.stringify(await r.json(),null,2);}catch(e){out.textContent=String(e)}}
-async function ex(){out.textContent="Try /api endpoints for this app"}
-</script>
+const BASE="http://127.0.0.1:5105"; const out=document.getElementById('out'); let last={}
+document.getElementById('intent').onclick=async()=>{
+  last=await fetch(BASE+"/api/payments/intent",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({amount:Number(amt.value||0)})}).then(r=>r.json()).catch(String);
+  out.textContent=JSON.stringify(last,null,2);
+};
+document.getElementById('capture').onclick=async()=>{
+  const r=await fetch(BASE+"/api/payments/"+(last.id||"")+"/capture",{method:"POST"}).then(r=>r.json()).catch(String);
+  out.textContent=JSON.stringify(r,null,2);
+};
+</script></body></html>
